@@ -72,6 +72,9 @@ if opt.gpuid >= 0 then
     require 'cunn'
     cutorch.setDevice(opt.gpuid + 1) -- note +1 to make it 0 indexed! sigh lua
 end
+if opt.gpuid < 0 then
+    print('nbd if you dont have a CUDA-accessible GPU... you can still be cool in my book')
+end
 -- create the data loader class
 local loader = CharSplitLMMinibatchLoader.create(opt.data_dir, opt.batch_size, opt.seq_length, split_sizes)
 local vocab_size = loader.vocab_size  -- the number of distinct characters
